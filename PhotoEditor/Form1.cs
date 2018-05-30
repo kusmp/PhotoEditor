@@ -23,6 +23,8 @@ namespace PhotoEditor
         bool drawCircle = false;
         List<Rectangle> rectangles = new List<Rectangle>();
         Rectangle mRect = Rectangle.Empty;
+        private Stack<Action> UndoList = new Stack<Action>();
+        private Stack<Action> RedoList = new Stack<Action>();
 
         public Form1()
         {
@@ -30,16 +32,9 @@ namespace PhotoEditor
             g = panel1.CreateGraphics();
             cmb_SelectBrushSize.SelectedIndex = 0;
             panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            txt_SelectShapeSize.Text = "40";
         }
 
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -85,6 +80,7 @@ namespace PhotoEditor
                 g.DrawLine(p, new Point(initX ?? e.X, initY ?? e.Y), new Point(e.X, e.Y));
                 initX = e.X;
                 initY = e.Y;
+           
             }
         }
 
@@ -149,20 +145,20 @@ namespace PhotoEditor
             drawCircle = true;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void btn_Clear_Click(object sender, EventArgs e)
         {
-  
-         
+            g.Clear(Color.White);
+            panel1.Refresh();
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-        
-        }
+
+
+        // Save a snapshot in the undo list.
+
     }
 }
