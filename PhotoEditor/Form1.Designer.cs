@@ -48,12 +48,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_Line = new System.Windows.Forms.Button();
             this.btn_undo = new System.Windows.Forms.Button();
             this.btn_redo = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_Line = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -246,6 +246,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kształt";
             // 
+            // btn_Line
+            // 
+            this.btn_Line.Location = new System.Drawing.Point(25, 24);
+            this.btn_Line.Name = "btn_Line";
+            this.btn_Line.Size = new System.Drawing.Size(75, 23);
+            this.btn_Line.TabIndex = 3;
+            this.btn_Line.Text = "Linia";
+            this.btn_Line.UseVisualStyleBackColor = true;
+            this.btn_Line.Click += new System.EventHandler(this.btn_Line_Click);
+            // 
             // btn_undo
             // 
             this.btn_undo.Location = new System.Drawing.Point(6, 19);
@@ -254,6 +264,7 @@
             this.btn_undo.TabIndex = 3;
             this.btn_undo.Text = "Cofnij";
             this.btn_undo.UseVisualStyleBackColor = true;
+            this.btn_undo.Click += new System.EventHandler(this.btn_undo_Click);
             // 
             // btn_redo
             // 
@@ -297,16 +308,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            // 
-            // btn_Line
-            // 
-            this.btn_Line.Location = new System.Drawing.Point(25, 24);
-            this.btn_Line.Name = "btn_Line";
-            this.btn_Line.Size = new System.Drawing.Size(75, 23);
-            this.btn_Line.TabIndex = 3;
-            this.btn_Line.Text = "Linia";
-            this.btn_Line.UseVisualStyleBackColor = true;
-            this.btn_Line.Click += new System.EventHandler(this.btn_Line_Click);
             // 
             // Form1
             // 

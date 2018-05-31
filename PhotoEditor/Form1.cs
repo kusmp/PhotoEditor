@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -27,8 +28,8 @@ namespace PhotoEditor
         Bitmap bmap = new Bitmap(800, 504);
         List<Rectangle> rectangles = new List<Rectangle>();
         Rectangle mRect = Rectangle.Empty;
-        private Stack<Action> UndoList = new Stack<Action>();
-        private Stack<Action> RedoList = new Stack<Action>();
+        private List<Bitmap> UndoList = new List<Bitmap>();
+        private List<Bitmap> RedoList = new List<Bitmap>();
 
         public Form1()
         {
@@ -38,6 +39,7 @@ namespace PhotoEditor
             cmb_SelectBrushSize.SelectedIndex = 0;
             txt_SelectShapeSize.Text = "40";
             pen = new Pen(Color.Black);
+            Console.WriteLine("Size: " + UndoList.Count);
 
         }
 
@@ -134,9 +136,9 @@ namespace PhotoEditor
         {
             if (startPaint && e.Button == MouseButtons.Left)
             {
+                
                 g.DrawLine(pen, point, e.Location);
                 point = e.Location;
-
                 pictureBox1.Refresh();
 
             }
@@ -146,6 +148,9 @@ namespace PhotoEditor
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+            UndoList.Add(tempBitmap);
+            Console.WriteLine("Size1 : " + UndoList.Count);
             startPaint = true;
             if (e.Button == MouseButtons.Left)
                 point = e.Location;
@@ -160,7 +165,6 @@ namespace PhotoEditor
                 g.FillRectangle(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
 
                 startPaint = false;
-              //  drawSquare = false;
                 pictureBox1.Refresh();
             }
             if (drawRectangle)
@@ -189,9 +193,17 @@ namespace PhotoEditor
             drawCircle = false;
         }
 
-        // private void panel1_Paint(object sender, PaintEventArgs e)
-        // {
-        //     e.Graphics.DrawImage(bmp, Point.Empty);
-        // }
+        private void btn_undo_Click(object sender, EventArgs e)
+        {
+            // UndoList.Push(pictureBox1.Image);
+            Console.WriteLine("Size " + UndoList.Count);
+            if (UndoList.Count != 0)
+            {
+                pictureBox1.Image = UndoList[UndoList.Count - 1];
+                UndoList.RemoveAt(UndoList.Count - 1);
+                g = Graphics.FromImage(pictureBox1.Image);
+                pictureBox1.Refresh();
+            }
+        }
     }
 }
