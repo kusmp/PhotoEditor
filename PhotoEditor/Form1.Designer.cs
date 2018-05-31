@@ -37,7 +37,6 @@
             this.eNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oAplikacjiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.btn_SelectPenColor = new System.Windows.Forms.Button();
             this.cmb_SelectBrushSize = new System.Windows.Forms.ComboBox();
             this.btn_DrawSquare = new System.Windows.Forms.Button();
@@ -53,10 +52,13 @@
             this.btn_redo = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_Line = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -129,17 +131,6 @@
             this.oAplikacjiToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.oAplikacjiToolStripMenuItem.Text = "O aplikacji";
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(152, 27);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(816, 505);
-            this.panel1.TabIndex = 2;
-            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
-            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
-            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
-            // 
             // btn_SelectPenColor
             // 
             this.btn_SelectPenColor.BackColor = System.Drawing.SystemColors.Desktop;
@@ -165,7 +156,7 @@
             // 
             // btn_DrawSquare
             // 
-            this.btn_DrawSquare.Location = new System.Drawing.Point(27, 19);
+            this.btn_DrawSquare.Location = new System.Drawing.Point(25, 53);
             this.btn_DrawSquare.Name = "btn_DrawSquare";
             this.btn_DrawSquare.Size = new System.Drawing.Size(75, 23);
             this.btn_DrawSquare.TabIndex = 5;
@@ -175,7 +166,7 @@
             // 
             // btn_DrawRectangle
             // 
-            this.btn_DrawRectangle.Location = new System.Drawing.Point(27, 48);
+            this.btn_DrawRectangle.Location = new System.Drawing.Point(25, 82);
             this.btn_DrawRectangle.Name = "btn_DrawRectangle";
             this.btn_DrawRectangle.Size = new System.Drawing.Size(75, 23);
             this.btn_DrawRectangle.TabIndex = 6;
@@ -185,7 +176,7 @@
             // 
             // btn_DrawCircle
             // 
-            this.btn_DrawCircle.Location = new System.Drawing.Point(27, 77);
+            this.btn_DrawCircle.Location = new System.Drawing.Point(25, 111);
             this.btn_DrawCircle.Name = "btn_DrawCircle";
             this.btn_DrawCircle.Size = new System.Drawing.Size(75, 23);
             this.btn_DrawCircle.TabIndex = 7;
@@ -195,7 +186,7 @@
             // 
             // txt_SelectShapeSize
             // 
-            this.txt_SelectShapeSize.Location = new System.Drawing.Point(13, 123);
+            this.txt_SelectShapeSize.Location = new System.Drawing.Point(13, 162);
             this.txt_SelectShapeSize.Name = "txt_SelectShapeSize";
             this.txt_SelectShapeSize.Size = new System.Drawing.Size(100, 20);
             this.txt_SelectShapeSize.TabIndex = 8;
@@ -221,7 +212,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 107);
+            this.label4.Location = new System.Drawing.Point(20, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 12;
@@ -242,14 +233,15 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btn_Line);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.btn_DrawRectangle);
             this.groupBox2.Controls.Add(this.btn_DrawSquare);
             this.groupBox2.Controls.Add(this.btn_DrawCircle);
             this.groupBox2.Controls.Add(this.txt_SelectShapeSize);
-            this.groupBox2.Location = new System.Drawing.Point(14, 125);
+            this.groupBox2.Location = new System.Drawing.Point(22, 125);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(124, 161);
+            this.groupBox2.Size = new System.Drawing.Size(124, 196);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kształt";
@@ -288,22 +280,43 @@
             this.groupBox3.Controls.Add(this.btn_Clear);
             this.groupBox3.Controls.Add(this.btn_undo);
             this.groupBox3.Controls.Add(this.btn_redo);
-            this.groupBox3.Location = new System.Drawing.Point(6, 292);
+            this.groupBox3.Location = new System.Drawing.Point(14, 327);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(140, 78);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Akcje";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(168, 28);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(800, 504);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            // 
+            // btn_Line
+            // 
+            this.btn_Line.Location = new System.Drawing.Point(25, 24);
+            this.btn_Line.Name = "btn_Line";
+            this.btn_Line.Size = new System.Drawing.Size(75, 23);
+            this.btn_Line.TabIndex = 3;
+            this.btn_Line.Text = "Linia";
+            this.btn_Line.UseVisualStyleBackColor = true;
+            this.btn_Line.Click += new System.EventHandler(this.btn_Line_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 544);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -315,6 +328,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,7 +344,6 @@
         private System.Windows.Forms.ToolStripMenuItem pLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eNToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_SelectPenColor;
         private System.Windows.Forms.ComboBox cmb_SelectBrushSize;
         private System.Windows.Forms.Button btn_DrawSquare;
@@ -346,6 +359,8 @@
         private System.Windows.Forms.Button btn_redo;
         private System.Windows.Forms.Button btn_Clear;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btn_Line;
     }
 }
 

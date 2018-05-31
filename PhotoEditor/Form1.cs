@@ -21,6 +21,10 @@ namespace PhotoEditor
         bool drawSquare = false;
         bool drawRectangle = false;
         bool drawCircle = false;
+        bool drawLine = false;
+        Point point = Point.Empty;
+        Pen pen;
+        Bitmap bmap = new Bitmap(800, 504);
         List<Rectangle> rectangles = new List<Rectangle>();
         Rectangle mRect = Rectangle.Empty;
         private Stack<Action> UndoList = new Stack<Action>();
@@ -29,10 +33,12 @@ namespace PhotoEditor
         public Form1()
         {
             InitializeComponent();
-            g = panel1.CreateGraphics();
+            pictureBox1.Image = bmap;
+            g = Graphics.FromImage(pictureBox1.Image);
             cmb_SelectBrushSize.SelectedIndex = 0;
-            panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txt_SelectShapeSize.Text = "40";
+            pen = new Pen(Color.Black);
+
         }
 
 
@@ -43,9 +49,12 @@ namespace PhotoEditor
 
             if (ofd.ShowDialog() == DialogResult.OK && ofd.FileName.Length > 0)
             {
-                panel1.AutoSize = true;
-                panel1.BackgroundImageLayout = ImageLayout.Zoom;
-                panel1.BackgroundImage = Image.FromFile(ofd.FileName);
+                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+                //  pictureBox1.Image = Image.FromFile(ofd.FileName);
+                bmap = new Bitmap(ofd.FileName);
+                pictureBox1.Image = bmap;
+                g = Graphics.FromImage(pictureBox1.Image);
+                GC.Collect();
             }
         }
 
@@ -56,61 +65,18 @@ namespace PhotoEditor
 
             if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)
             {
-                using (Bitmap graphicSurface = new Bitmap(panel1.Width, panel1.Height))
-                {
-                    using (StreamWriter bitmapWriter = new StreamWriter(sfd.FileName))
-                    {
-                        panel1.DrawToBitmap(graphicSurface, new Rectangle(0, 0, panel1.Width, panel1.Height));
-                        graphicSurface.Save(bitmapWriter.BaseStream, ImageFormat.Jpeg);
-                    }
-                }
+
+                //TODO Nadpisywanie pliku
+                pictureBox1.Image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+
             }
         }
+
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (startPaint)
-            {
-                Pen p = new Pen(btn_SelectPenColor.BackColor, float.Parse(cmb_SelectBrushSize.Text));
-                g.DrawLine(p, new Point(initX ?? e.X, initY ?? e.Y), new Point(e.X, e.Y));
-                initX = e.X;
-                initY = e.Y;
-           
-            }
-        }
-
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            startPaint = true;
-            if (drawSquare)
-            {
-               
-                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-          
-                g.FillRectangle(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
-              
-                startPaint = false;
-                drawSquare = false;
-            }
-            if (drawRectangle)
-            {
-                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-                g.FillRectangle(sb, e.X, e.Y, 2 * int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
-                startPaint = false;
-                drawRectangle = false;
-            }
-            if (drawCircle)
-            {
-                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-                g.FillEllipse(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
-                startPaint = false;
-                drawCircle = false;
-            }
         }
 
         private void btn_SelectPenColor_Click(object sender, EventArgs e)
@@ -119,30 +85,35 @@ namespace PhotoEditor
             if (color.ShowDialog() == DialogResult.OK)
             {
                 btn_SelectPenColor.BackColor = color.Color;
+                pen.Color = color.Color;
             }
         }
 
-        private void panel1_MouseUp(object sender, MouseEventArgs e)
-        {
-            startPaint = false;
-            initX = null;
-            initY = null;
-        }
 
         private void btn_DrawSquare_Click(object sender, EventArgs e)
         {
             drawSquare = true;
-        
+            drawRectangle = false;
+            drawCircle = false;
+            drawLine = false;
+
         }
 
         private void btn_DrawRectangle_Click(object sender, EventArgs e)
         {
             drawRectangle = true;
+            drawSquare = false;
+            drawCircle = false;
+            drawLine = false;
+            Console.WriteLine("Rectangle Button : " + drawRectangle);
         }
 
         private void btn_DrawCircle_Click(object sender, EventArgs e)
         {
             drawCircle = true;
+            drawRectangle = false;
+            drawSquare = false;
+            drawLine = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -152,13 +123,75 @@ namespace PhotoEditor
 
         private void btn_Clear_Click(object sender, EventArgs e)
         {
+            Bitmap bmap = new Bitmap(800, 504);
+            pictureBox1.Image = bmap;
+            g = Graphics.FromImage(pictureBox1.Image);
             g.Clear(Color.White);
-            panel1.Refresh();
+            pictureBox1.Refresh();
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (startPaint && e.Button == MouseButtons.Left)
+            {
+                g.DrawLine(pen, point, e.Location);
+                point = e.Location;
+
+                pictureBox1.Refresh();
+
+            }
+
         }
 
 
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            startPaint = true;
+            if (e.Button == MouseButtons.Left)
+                point = e.Location;
 
-        // Save a snapshot in the undo list.
+        
+            if (drawSquare)
+            {
+               
+                Console.WriteLine("Square");
+                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
 
+                g.FillRectangle(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
+
+                startPaint = false;
+              //  drawSquare = false;
+                pictureBox1.Refresh();
+            }
+            if (drawRectangle)
+            {
+               
+                Console.WriteLine("Rectangle");
+                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
+                g.FillRectangle(sb, e.X, e.Y, 2 * int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
+                startPaint = false;
+                pictureBox1.Refresh();
+            }
+            if (drawCircle)
+            {
+                
+                SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
+                g.FillEllipse(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
+                startPaint = false;
+                pictureBox1.Refresh();
+            }
+        }
+
+        private void btn_Line_Click(object sender, EventArgs e)
+        {
+            drawRectangle = false;
+            drawSquare = false;
+            drawCircle = false;
+        }
+
+        // private void panel1_Paint(object sender, PaintEventArgs e)
+        // {
+        //     e.Graphics.DrawImage(bmp, Point.Empty);
+        // }
     }
 }
