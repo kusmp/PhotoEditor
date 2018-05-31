@@ -1,6 +1,6 @@
 ﻿namespace PhotoEditor
 {
-    partial class Form1
+    partial class PhotoEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -43,9 +43,9 @@
             this.btn_DrawRectangle = new System.Windows.Forms.Button();
             this.btn_DrawCircle = new System.Windows.Forms.Button();
             this.txt_SelectShapeSize = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelBrushSize = new System.Windows.Forms.Label();
+            this.labelBrushColor = new System.Windows.Forms.Label();
+            this.labelShapeSize = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_Line = new System.Windows.Forms.Button();
@@ -89,14 +89,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Otwórz";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Zapisz";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -106,25 +106,27 @@
             this.pLToolStripMenuItem,
             this.eNToolStripMenuItem});
             this.changeLangToolStripMenuItem.Name = "changeLangToolStripMenuItem";
-            this.changeLangToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.changeLangToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.changeLangToolStripMenuItem.Text = "Zmień język";
             // 
             // pLToolStripMenuItem
             // 
             this.pLToolStripMenuItem.Name = "pLToolStripMenuItem";
-            this.pLToolStripMenuItem.Size = new System.Drawing.Size(89, 22);
+            this.pLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pLToolStripMenuItem.Text = "PL";
+            this.pLToolStripMenuItem.Click += new System.EventHandler(this.pLToolStripMenuItem_Click);
             // 
             // eNToolStripMenuItem
             // 
             this.eNToolStripMenuItem.Name = "eNToolStripMenuItem";
-            this.eNToolStripMenuItem.Size = new System.Drawing.Size(89, 22);
+            this.eNToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eNToolStripMenuItem.Text = "EN";
+            this.eNToolStripMenuItem.Click += new System.EventHandler(this.eNToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Wyjdź";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -195,38 +197,38 @@
             this.txt_SelectShapeSize.Size = new System.Drawing.Size(100, 20);
             this.txt_SelectShapeSize.TabIndex = 8;
             // 
-            // label1
+            // labelBrushSize
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Rozmiar pędzla";
+            this.labelBrushSize.AutoSize = true;
+            this.labelBrushSize.Location = new System.Drawing.Point(24, 16);
+            this.labelBrushSize.Name = "labelBrushSize";
+            this.labelBrushSize.Size = new System.Drawing.Size(79, 13);
+            this.labelBrushSize.TabIndex = 9;
+            this.labelBrushSize.Text = "Rozmiar pędzla";
             // 
-            // label2
+            // labelBrushColor
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Kolor pędzla";
+            this.labelBrushColor.AutoSize = true;
+            this.labelBrushColor.Location = new System.Drawing.Point(30, 56);
+            this.labelBrushColor.Name = "labelBrushColor";
+            this.labelBrushColor.Size = new System.Drawing.Size(65, 13);
+            this.labelBrushColor.TabIndex = 10;
+            this.labelBrushColor.Text = "Kolor pędzla";
             // 
-            // label4
+            // labelShapeSize
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 146);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Rozmiar kształtu";
+            this.labelShapeSize.AutoSize = true;
+            this.labelShapeSize.Location = new System.Drawing.Point(20, 146);
+            this.labelShapeSize.Name = "labelShapeSize";
+            this.labelShapeSize.Size = new System.Drawing.Size(86, 13);
+            this.labelShapeSize.TabIndex = 12;
+            this.labelShapeSize.Text = "Rozmiar kształtu";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.labelBrushSize);
             this.groupBox1.Controls.Add(this.btn_SelectPenColor);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.labelBrushColor);
             this.groupBox1.Controls.Add(this.cmb_SelectBrushSize);
             this.groupBox1.Location = new System.Drawing.Point(14, 19);
             this.groupBox1.Name = "groupBox1";
@@ -238,7 +240,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btn_Line);
-            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.labelShapeSize);
             this.groupBox2.Controls.Add(this.btn_DrawRectangle);
             this.groupBox2.Controls.Add(this.btn_DrawSquare);
             this.groupBox2.Controls.Add(this.btn_DrawCircle);
@@ -341,7 +343,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // PhotoEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -355,7 +357,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "PhotoEditor";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -386,9 +388,9 @@
         private System.Windows.Forms.Button btn_DrawRectangle;
         private System.Windows.Forms.Button btn_DrawCircle;
         private System.Windows.Forms.TextBox txt_SelectShapeSize;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelBrushSize;
+        private System.Windows.Forms.Label labelBrushColor;
+        private System.Windows.Forms.Label labelShapeSize;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btn_undo;

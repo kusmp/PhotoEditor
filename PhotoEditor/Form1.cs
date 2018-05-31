@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Plugins;
 using System.Reflection;
+using System.Resources;
+using System.Globalization;
 
 namespace PhotoEditor
 {
-    public partial class Form1 : Form
+    public partial class PhotoEditor : Form
     {
         Graphics g;
         bool startPaint = false;
@@ -35,7 +37,7 @@ namespace PhotoEditor
         private List<Bitmap> UndoList = new List<Bitmap>();
         private List<Bitmap> RedoList = new List<Bitmap>();
         
-        public Form1()
+        public PhotoEditor()
         {
             InitializeComponent();
             pictureBox1.Image = bmap;
@@ -247,6 +249,58 @@ namespace PhotoEditor
                     }
                 }
             }
+        }
+
+        private void eNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CultureInfo ci = new CultureInfo("en-US");
+            Assembly a = Assembly.Load("PhotoEditor");
+            ResourceManager rm = new ResourceManager("PhotoEditor.Lang.ENlangRes", a);
+           btn_Line.Text = rm.GetString("btn_LineText", ci);
+            btn_DrawCircle.Text = rm.GetString("btn_CircleText", ci);
+            btn_DrawSquare.Text = rm.GetString("btn_SquareText", ci);
+            btn_DrawRectangle.Text = rm.GetString("btn_RectangleText", ci);
+            btn_Clear.Text = rm.GetString("btn_ClearText", ci);
+            groupBox1.Text = rm.GetString("groupBox1Text", ci);
+            groupBox2.Text = rm.GetString("groupBox2Text", ci);
+            groupBox3.Text = rm.GetString("groupBox3Text", ci);
+            btn_undo.Text = rm.GetString("btn_undoText", ci);
+            btn_redo.Text = rm.GetString("btn_redoText", ci);
+            labelBrushColor.Text = rm.GetString("labelBrushColorText", ci);
+            labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
+            labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
+            plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
+            oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
+            openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
+            saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
+            changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
+            closeToolStripMenuItem.Text = rm.GetString("closeToolStripMenuItem", ci);
+        }
+
+        private void pLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CultureInfo ci = new CultureInfo("pl-PL");
+            Assembly a = Assembly.Load("PhotoEditor");
+            ResourceManager rm = new ResourceManager("PhotoEditor.Lang.PLlangRes", a);
+            btn_Line.Text = rm.GetString("btn_LineText", ci);
+            btn_DrawCircle.Text = rm.GetString("btn_CircleText", ci);
+            btn_DrawSquare.Text = rm.GetString("btn_SquareText", ci);
+            btn_DrawRectangle.Text = rm.GetString("btn_RectangleText", ci);
+            btn_Clear.Text = rm.GetString("btn_ClearText", ci);
+            groupBox1.Text = rm.GetString("groupBox1Text", ci);
+            groupBox2.Text = rm.GetString("groupBox2Text", ci);
+            groupBox3.Text = rm.GetString("groupBox3Text", ci);
+            btn_undo.Text = rm.GetString("btn_undoText", ci);
+            btn_redo.Text = rm.GetString("btn_redoText", ci);
+            labelBrushColor.Text = rm.GetString("labelBrushColorText", ci);
+            labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
+            labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
+            plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
+            oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
+            openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
+            saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
+            changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
+            closeToolStripMenuItem.Text = rm.GetString("closeToolStripMenuItem", ci);
         }
     }
 }
