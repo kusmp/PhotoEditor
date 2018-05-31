@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Plugins;
+using System.Reflection;
 
 namespace PhotoEditor
 {
@@ -224,6 +226,27 @@ namespace PhotoEditor
             penSize = Int32.Parse(cmb_SelectBrushSize.SelectedItem.ToString());
            
             pen = new Pen(penColor, penSize);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            if (op.ShowDialog() == DialogResult.OK)
+            {
+                Assembly.LoadFrom(op.FileName);
+                foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    foreach(Type t in a.GetTypes())
+                    {
+                        if (t.GetInterface("Plugin")!=null)
+                        {
+                            Plugin p = Activator.CreateInstance(t) as Plugin;
+                            label5.Text = p.PluginName();
+                            p.run();
+                        }
+                    }
+                }
+            }
         }
     }
 }
