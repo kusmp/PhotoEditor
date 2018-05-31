@@ -118,10 +118,6 @@ namespace PhotoEditor
             drawLine = false;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btn_Clear_Click(object sender, EventArgs e)
         {
@@ -197,6 +193,7 @@ namespace PhotoEditor
         {
             // UndoList.Push(pictureBox1.Image);
             Console.WriteLine("Size " + UndoList.Count);
+            RedoList.Add(new Bitmap(pictureBox1.Image));
             if (UndoList.Count != 0)
             {
                 pictureBox1.Image = UndoList[UndoList.Count - 1];
@@ -205,5 +202,19 @@ namespace PhotoEditor
                 pictureBox1.Refresh();
             }
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+               if (RedoList.Count != 0)
+            {
+                UndoList.Add(new Bitmap(pictureBox1.Image));
+                Console.WriteLine("Redo Size: " + RedoList.Count);
+                pictureBox1.Image = RedoList.ElementAt(RedoList.Count-1);
+                g = Graphics.FromImage(pictureBox1.Image);
+                RedoList.RemoveAt(RedoList.Count-1);
+                pictureBox1.Refresh();
+                
+            }
+        }
+
     }
 }
