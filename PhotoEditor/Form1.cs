@@ -24,13 +24,15 @@ namespace PhotoEditor
         bool drawCircle = false;
         bool drawLine = false;
         Point point = Point.Empty;
+        private int penSize = 1;
         Pen pen;
+        Color penColor = Color.Black;
         Bitmap bmap = new Bitmap(800, 504);
         List<Rectangle> rectangles = new List<Rectangle>();
         Rectangle mRect = Rectangle.Empty;
         private List<Bitmap> UndoList = new List<Bitmap>();
         private List<Bitmap> RedoList = new List<Bitmap>();
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace PhotoEditor
             g = Graphics.FromImage(pictureBox1.Image);
             cmb_SelectBrushSize.SelectedIndex = 0;
             txt_SelectShapeSize.Text = "40";
-            pen = new Pen(Color.Black);
+            pen = new Pen(Color.Black, 1);
             Console.WriteLine("Size: " + UndoList.Count);
 
         }
@@ -88,6 +90,7 @@ namespace PhotoEditor
             {
                 btn_SelectPenColor.BackColor = color.Color;
                 pen.Color = color.Color;
+                penColor = color.Color;
             }
         }
 
@@ -216,5 +219,11 @@ namespace PhotoEditor
             }
         }
 
+        private void cmb_SelectBrushSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            penSize = Int32.Parse(cmb_SelectBrushSize.SelectedItem.ToString());
+           
+            pen = new Pen(penColor, penSize);
+        }
     }
 }

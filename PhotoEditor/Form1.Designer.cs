@@ -153,6 +153,7 @@
             this.cmb_SelectBrushSize.Name = "cmb_SelectBrushSize";
             this.cmb_SelectBrushSize.Size = new System.Drawing.Size(75, 21);
             this.cmb_SelectBrushSize.TabIndex = 4;
+            this.cmb_SelectBrushSize.SelectedIndexChanged += new System.EventHandler(this.cmb_SelectBrushSize_SelectedIndexChanged);
             // 
             // btn_DrawSquare
             // 
