@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins", "Plugins\Plugins.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPlugin1", "MyPlugin1\MyPlugin1.csproj", "{B79ED9D5-D60F-432A-B40C-4BA796DF7045}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseColors", "ReverseColors\ReverseColors.csproj", "{3E09E042-446E-4269-838F-8B8D00DFCA36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotateFlip", "RotateFlip\RotateFlip.csproj", "{7EFEB442-3F63-4896-A0AA-446A7711F6BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{B79ED9D5-D60F-432A-B40C-4BA796DF7045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B79ED9D5-D60F-432A-B40C-4BA796DF7045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B79ED9D5-D60F-432A-B40C-4BA796DF7045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E09E042-446E-4269-838F-8B8D00DFCA36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E09E042-446E-4269-838F-8B8D00DFCA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E09E042-446E-4269-838F-8B8D00DFCA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E09E042-446E-4269-838F-8B8D00DFCA36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFEB442-3F63-4896-A0AA-446A7711F6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFEB442-3F63-4896-A0AA-446A7711F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFEB442-3F63-4896-A0AA-446A7711F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFEB442-3F63-4896-A0AA-446A7711F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

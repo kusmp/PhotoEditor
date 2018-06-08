@@ -46,6 +46,8 @@ namespace PhotoEditor
             txt_SelectShapeSize.Text = "40";
             pen = new Pen(Color.Black, 1);
             Console.WriteLine("Size: " + UndoList.Count);
+            btn_undo.Enabled = false;
+            btn_redo.Enabled = false;
 
         }
 
@@ -199,14 +201,20 @@ namespace PhotoEditor
         private void btn_undo_Click(object sender, EventArgs e)
         {
             // UndoList.Push(pictureBox1.Image);
+            btn_redo.Enabled = true;
             Console.WriteLine("Size " + UndoList.Count);
             RedoList.Add(new Bitmap(pictureBox1.Image));
             if (UndoList.Count != 0)
             {
                 pictureBox1.Image = UndoList[UndoList.Count - 1];
                 UndoList.RemoveAt(UndoList.Count - 1);
+                btn_redo.Enabled = true;
                 g = Graphics.FromImage(pictureBox1.Image);
                 pictureBox1.Refresh();
+            }
+            else
+            {
+                btn_undo.Enabled = false;
             }
         }
         private void button3_Click(object sender, EventArgs e)
@@ -221,6 +229,10 @@ namespace PhotoEditor
                 pictureBox1.Refresh();
                 
             }
+            else
+            {
+                btn_redo.Enabled = false;
+            }
         }
 
         private void cmb_SelectBrushSize_SelectedIndexChanged(object sender, EventArgs e)
@@ -232,20 +244,62 @@ namespace PhotoEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog op = new OpenFileDialog();
-            if (op.ShowDialog() == DialogResult.OK)
-            {
-                Assembly.LoadFrom(op.FileName);
-                foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\MyPlugin1\bin\Debug\MyPlugin1.dll");
+                foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    foreach(Type t in a.GetTypes())
+                    foreach (Type t in a.GetTypes())
                     {
-                        if (t.GetInterface("Plugin")!=null)
+                        if (t.GetInterface("Plugin") != null)
                         {
+                            Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
                             Plugin p = Activator.CreateInstance(t) as Plugin;
                             label5.Text = p.PluginName();
-                            p.run();
+                            Bitmap bmap = p.run(tempBitmap);
+                            pictureBox1.Image = bmap;
+                            g = Graphics.FromImage(pictureBox1.Image);
+                            pictureBox1.Refresh();
                         }
+                    }
+                }  
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\ReverseColors\bin\Debug\ReverseColors.dll");
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (Type t in a.GetTypes())
+                {
+                    if (t.GetInterface("Plugin") != null)
+                    {
+                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+                        Plugin p = Activator.CreateInstance(t) as Plugin;
+                        label5.Text = p.PluginName();
+                        Bitmap bmap = p.run(tempBitmap);
+                        pictureBox1.Image = bmap;
+                        g = Graphics.FromImage(pictureBox1.Image);
+                        pictureBox1.Refresh();
+                    }
+                }
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\RotateFlip\bin\Debug\RotateFlip.dll");
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (Type t in a.GetTypes())
+                {
+                    if (t.GetInterface("Plugin") != null)
+                    {
+                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+                        Plugin p = Activator.CreateInstance(t) as Plugin;
+                        label5.Text = p.PluginName();
+                        Bitmap bmap = p.run(tempBitmap);
+                        pictureBox1.Image = bmap;
+                        g = Graphics.FromImage(pictureBox1.Image);
+                        pictureBox1.Refresh();
                     }
                 }
             }
@@ -302,5 +356,12 @@ namespace PhotoEditor
             changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
             closeToolStripMenuItem.Text = rm.GetString("closeToolStripMenuItem", ci);
         }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn_undo.Enabled = true;
+        }
+
+      
     }
 }

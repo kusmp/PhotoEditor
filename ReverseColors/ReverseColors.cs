@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyPlugin1;
+using ReverseColors;
 using System.Windows.Forms;
-using Plugins;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using Plugins;
 
-
-namespace MyPlugin1
+namespace ReverseColors
 {
-    public class MyPlugin1 : Plugin
+    public class ReverseColors : Plugin
     {
         public string PluginName()
         {
@@ -23,10 +19,10 @@ namespace MyPlugin1
 
         public Bitmap run(Bitmap bitmap)
         {
-           return SetGrayscale(bitmap);
+            return invertColors(bitmap);
         }
 
-        public Bitmap SetGrayscale(Bitmap _currentBitmap)
+        private Bitmap invertColors(Bitmap _currentBitmap)
         {
             Bitmap temp = (Bitmap)_currentBitmap;
             Bitmap bmap = (Bitmap)temp.Clone();
@@ -36,14 +32,10 @@ namespace MyPlugin1
                 for (int j = 0; j < bmap.Height; j++)
                 {
                     c = bmap.GetPixel(i, j);
-                    byte gray = (byte)(.299 * c.R + .587 * c.G + .114 * c.B);
-
-                    bmap.SetPixel(i, j, Color.FromArgb(gray, gray, gray));
+                    bmap.SetPixel(i, j, Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
                 }
             }
             return bmap;
         }
-
-
     }
 }
