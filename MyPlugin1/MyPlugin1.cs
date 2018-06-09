@@ -18,7 +18,7 @@ namespace MyPlugin1
     {
         public string PluginName()
         {
-            return "Reverse Color Plugin";
+            return "GrayScale Plugin";
         }
 
         public Bitmap run(Bitmap bitmap)

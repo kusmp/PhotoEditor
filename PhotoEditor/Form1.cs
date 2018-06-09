@@ -48,6 +48,7 @@ namespace PhotoEditor
             Console.WriteLine("Size: " + UndoList.Count);
             btn_undo.Enabled = false;
             btn_redo.Enabled = false;
+            LoadPlugins();
 
         }
 
@@ -59,12 +60,16 @@ namespace PhotoEditor
 
             if (ofd.ShowDialog() == DialogResult.OK && ofd.FileName.Length > 0)
             {
-                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+                UndoList.Clear();
+                RedoList.Clear();
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 //  pictureBox1.Image = Image.FromFile(ofd.FileName);
-                bmap = new Bitmap(ofd.FileName);
+                Image img = Image.FromFile(ofd.FileName);
+                bmap = new Bitmap(img, 800, 504);
                 pictureBox1.Image = bmap;
                 g = Graphics.FromImage(pictureBox1.Image);
-                GC.Collect();
+                pictureBox1.Refresh();
+               
             }
         }
 
@@ -204,7 +209,11 @@ namespace PhotoEditor
             btn_redo.Enabled = true;
             Console.WriteLine("Size " + UndoList.Count);
             RedoList.Add(new Bitmap(pictureBox1.Image));
-            if (UndoList.Count != 0)
+            if(UndoList.Count == 1)
+            {
+                btn_undo.Enabled = false;
+            }
+            if ((UndoList.Count) != 0)
             {
                 pictureBox1.Image = UndoList[UndoList.Count - 1];
                 UndoList.RemoveAt(UndoList.Count - 1);
@@ -219,6 +228,11 @@ namespace PhotoEditor
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            btn_undo.Enabled = true;
+            if(RedoList.Count == 1)
+            {
+                btn_redo.Enabled = false;
+            }
                if (RedoList.Count != 0)
             {
                 UndoList.Add(new Bitmap(pictureBox1.Image));
@@ -242,69 +256,7 @@ namespace PhotoEditor
             pen = new Pen(penColor, penSize);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-                Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\MyPlugin1\bin\Debug\MyPlugin1.dll");
-                foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (Type t in a.GetTypes())
-                    {
-                        if (t.GetInterface("Plugin") != null)
-                        {
-                            Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
-                            Plugin p = Activator.CreateInstance(t) as Plugin;
-                            label5.Text = p.PluginName();
-                            Bitmap bmap = p.run(tempBitmap);
-                            pictureBox1.Image = bmap;
-                            g = Graphics.FromImage(pictureBox1.Image);
-                            pictureBox1.Refresh();
-                        }
-                    }
-                }  
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\ReverseColors\bin\Debug\ReverseColors.dll");
-            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type t in a.GetTypes())
-                {
-                    if (t.GetInterface("Plugin") != null)
-                    {
-                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
-                        Plugin p = Activator.CreateInstance(t) as Plugin;
-                        label5.Text = p.PluginName();
-                        Bitmap bmap = p.run(tempBitmap);
-                        pictureBox1.Image = bmap;
-                        g = Graphics.FromImage(pictureBox1.Image);
-                        pictureBox1.Refresh();
-                    }
-                }
-            }
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            Assembly.LoadFrom(@"D:\GITHUB2\PhotoEditor\PhotoEditor\RotateFlip\bin\Debug\RotateFlip.dll");
-            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type t in a.GetTypes())
-                {
-                    if (t.GetInterface("Plugin") != null)
-                    {
-                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
-                        Plugin p = Activator.CreateInstance(t) as Plugin;
-                        label5.Text = p.PluginName();
-                        Bitmap bmap = p.run(tempBitmap);
-                        pictureBox1.Image = bmap;
-                        g = Graphics.FromImage(pictureBox1.Image);
-                        pictureBox1.Refresh();
-                    }
-                }
-            }
-        }
-
+   
         private void eNToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CultureInfo ci = new CultureInfo("en-US");
@@ -324,7 +276,7 @@ namespace PhotoEditor
             labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
             labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
             plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
-            oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
+            //oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
             openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
             saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
             changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
@@ -350,7 +302,7 @@ namespace PhotoEditor
             labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
             labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
             plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
-            oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
+            //oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
             openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
             saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
             changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
@@ -362,6 +314,52 @@ namespace PhotoEditor
             btn_undo.Enabled = true;
         }
 
-      
+        private void LoadPlugins()
+        {
+            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\PluginStore\");
+            FileInfo[] plugins = di.GetFiles("*.dll");
+            ToolStripMenuItem pluginsMenu = new ToolStripMenuItem("Wtyczki");
+            //need List or Array
+
+            if (plugins.Length != 0)
+            {
+                foreach(FileInfo fi in plugins)
+                {
+                    String pluginPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\PluginStore\" + fi.Name;
+                    var assembly = Assembly.LoadFrom(pluginPath);
+                    foreach(Type type in assembly.GetTypes())
+                    {
+                        if (type.IsClass)
+                        {
+                            if (type.IsPublic)
+                            {
+                                if (typeof(Plugin).IsAssignableFrom(type))
+                                {
+                                    var o = Activator.CreateInstance(type);
+                                    var p = (Plugin)o;
+                                    ToolStripMenuItem tsItem = new ToolStripMenuItem(p.PluginName());
+                                    tsItem.Click += (s, e) => {
+                                        UndoList.Add(new Bitmap(pictureBox1.Image));
+                                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+                                        Bitmap bmap = p.run(tempBitmap);
+                                        pictureBox1.Image = bmap;
+                                        g = Graphics.FromImage(pictureBox1.Image);
+                                        pictureBox1.Refresh();
+                                    };
+                                    pluginsMenu.DropDownItems.Add(tsItem);
+                                   
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            menuStrip1.Items.Add(pluginsMenu);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

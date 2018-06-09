@@ -36,7 +36,6 @@
             this.pLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oAplikacjiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_SelectPenColor = new System.Windows.Forms.Button();
             this.cmb_SelectBrushSize = new System.Windows.Forms.ComboBox();
             this.btn_DrawSquare = new System.Windows.Forms.Button();
@@ -54,11 +53,7 @@
             this.btn_Clear = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -69,8 +64,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plikToolStripMenuItem,
-            this.oAplikacjiToolStripMenuItem});
+            this.plikToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(980, 24);
@@ -131,12 +125,6 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.closeToolStripMenuItem.Text = "Wyjdź";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // oAplikacjiToolStripMenuItem
-            // 
-            this.oAplikacjiToolStripMenuItem.Name = "oAplikacjiToolStripMenuItem";
-            this.oAplikacjiToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
-            this.oAplikacjiToolStripMenuItem.Text = "O aplikacji";
             // 
             // btn_SelectPenColor
             // 
@@ -232,7 +220,7 @@
             this.groupBox1.Controls.Add(this.btn_SelectPenColor);
             this.groupBox1.Controls.Add(this.labelBrushColor);
             this.groupBox1.Controls.Add(this.cmb_SelectBrushSize);
-            this.groupBox1.Location = new System.Drawing.Point(14, 19);
+            this.groupBox1.Location = new System.Drawing.Point(18, 46);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(124, 100);
             this.groupBox1.TabIndex = 0;
@@ -247,7 +235,7 @@
             this.groupBox2.Controls.Add(this.btn_DrawSquare);
             this.groupBox2.Controls.Add(this.btn_DrawCircle);
             this.groupBox2.Controls.Add(this.txt_SelectShapeSize);
-            this.groupBox2.Location = new System.Drawing.Point(22, 125);
+            this.groupBox2.Location = new System.Drawing.Point(18, 162);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(124, 196);
             this.groupBox2.TabIndex = 0;
@@ -299,7 +287,7 @@
             this.groupBox3.Controls.Add(this.btn_Clear);
             this.groupBox3.Controls.Add(this.btn_undo);
             this.groupBox3.Controls.Add(this.btn_redo);
-            this.groupBox3.Location = new System.Drawing.Point(14, 327);
+            this.groupBox3.Location = new System.Drawing.Point(12, 364);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(140, 78);
             this.groupBox3.TabIndex = 0;
@@ -318,64 +306,22 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
-            // label3
+            // toolStrip1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 426);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Plugin Name: ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 454);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "...";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(14, 479);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Gray Scale";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 508);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(93, 23);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Reverse Colors";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(14, 537);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "Flip";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.Location = new System.Drawing.Point(0, 549);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(980, 25);
+            this.toolStrip1.TabIndex = 16;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Visible = false;
             // 
             // PhotoEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 574);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -400,7 +346,6 @@
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem oAplikacjiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeLangToolStripMenuItem;
@@ -424,11 +369,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btn_Line;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }
 
