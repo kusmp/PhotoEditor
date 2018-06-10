@@ -41,7 +41,6 @@
             this.btn_DrawSquare = new System.Windows.Forms.Button();
             this.btn_DrawRectangle = new System.Windows.Forms.Button();
             this.btn_DrawCircle = new System.Windows.Forms.Button();
-            this.txt_SelectShapeSize = new System.Windows.Forms.TextBox();
             this.labelBrushSize = new System.Windows.Forms.Label();
             this.labelBrushColor = new System.Windows.Forms.Label();
             this.labelShapeSize = new System.Windows.Forms.Label();
@@ -54,11 +53,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -180,13 +182,6 @@
             this.btn_DrawCircle.UseVisualStyleBackColor = true;
             this.btn_DrawCircle.Click += new System.EventHandler(this.btn_DrawCircle_Click);
             // 
-            // txt_SelectShapeSize
-            // 
-            this.txt_SelectShapeSize.Location = new System.Drawing.Point(13, 162);
-            this.txt_SelectShapeSize.Name = "txt_SelectShapeSize";
-            this.txt_SelectShapeSize.Size = new System.Drawing.Size(100, 20);
-            this.txt_SelectShapeSize.TabIndex = 8;
-            // 
             // labelBrushSize
             // 
             this.labelBrushSize.AutoSize = true;
@@ -229,15 +224,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btn_Line);
+            this.groupBox2.Controls.Add(this.trackBar1);
             this.groupBox2.Controls.Add(this.labelShapeSize);
             this.groupBox2.Controls.Add(this.btn_DrawRectangle);
             this.groupBox2.Controls.Add(this.btn_DrawSquare);
             this.groupBox2.Controls.Add(this.btn_DrawCircle);
-            this.groupBox2.Controls.Add(this.txt_SelectShapeSize);
             this.groupBox2.Location = new System.Drawing.Point(18, 162);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(124, 196);
+            this.groupBox2.Size = new System.Drawing.Size(124, 226);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kształt";
@@ -256,7 +252,7 @@
             // 
             this.btn_undo.Location = new System.Drawing.Point(6, 19);
             this.btn_undo.Name = "btn_undo";
-            this.btn_undo.Size = new System.Drawing.Size(50, 23);
+            this.btn_undo.Size = new System.Drawing.Size(55, 23);
             this.btn_undo.TabIndex = 3;
             this.btn_undo.Text = "Cofnij";
             this.btn_undo.UseVisualStyleBackColor = true;
@@ -266,7 +262,7 @@
             // 
             this.btn_redo.Location = new System.Drawing.Point(80, 19);
             this.btn_redo.Name = "btn_redo";
-            this.btn_redo.Size = new System.Drawing.Size(50, 23);
+            this.btn_redo.Size = new System.Drawing.Size(55, 23);
             this.btn_redo.TabIndex = 4;
             this.btn_redo.Text = "Ponów";
             this.btn_redo.UseVisualStyleBackColor = true;
@@ -287,7 +283,7 @@
             this.groupBox3.Controls.Add(this.btn_Clear);
             this.groupBox3.Controls.Add(this.btn_undo);
             this.groupBox3.Controls.Add(this.btn_redo);
-            this.groupBox3.Location = new System.Drawing.Point(12, 364);
+            this.groupBox3.Location = new System.Drawing.Point(12, 394);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(140, 78);
             this.groupBox3.TabIndex = 0;
@@ -316,6 +312,23 @@
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.Visible = false;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(3, 162);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(115, 45);
+            this.trackBar1.TabIndex = 17;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(83, 194);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "label1";
+            // 
             // PhotoEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -338,6 +351,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -357,7 +371,6 @@
         private System.Windows.Forms.Button btn_DrawSquare;
         private System.Windows.Forms.Button btn_DrawRectangle;
         private System.Windows.Forms.Button btn_DrawCircle;
-        private System.Windows.Forms.TextBox txt_SelectShapeSize;
         private System.Windows.Forms.Label labelBrushSize;
         private System.Windows.Forms.Label labelBrushColor;
         private System.Windows.Forms.Label labelShapeSize;
@@ -370,6 +383,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btn_Line;
         private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

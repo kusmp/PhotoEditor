@@ -22,20 +22,19 @@ namespace ReverseColors
             return invertColors(bitmap);
         }
 
-        private Bitmap invertColors(Bitmap _currentBitmap)
+        private Bitmap invertColors(Bitmap pic)
         {
-            Bitmap temp = (Bitmap)_currentBitmap;
-            Bitmap bmap = (Bitmap)temp.Clone();
-            Color c;
-            for (int i = 0; i < bmap.Width; i++)
+           
+            for (int y = 0; (y <= (pic.Height - 1)); y++)
             {
-                for (int j = 0; j < bmap.Height; j++)
+                for (int x = 0; (x <= (pic.Width - 1)); x++)
                 {
-                    c = bmap.GetPixel(i, j);
-                    bmap.SetPixel(i, j, Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
+                    Color inv = pic.GetPixel(x, y);
+                    inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                    pic.SetPixel(x, y, inv);
                 }
             }
-            return bmap;
+            return pic;
         }
     }
 }

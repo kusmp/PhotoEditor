@@ -40,14 +40,22 @@ namespace PhotoEditor
         public PhotoEditor()
         {
             InitializeComponent();
-            pictureBox1.Image = bmap;
-            g = Graphics.FromImage(pictureBox1.Image);
+           // pictureBox1.Image = bmap;
+            //g = Graphics.FromImage(pictureBox1.Image);
             cmb_SelectBrushSize.SelectedIndex = 0;
-            txt_SelectShapeSize.Text = "40";
             pen = new Pen(Color.Black, 1);
             Console.WriteLine("Size: " + UndoList.Count);
             btn_undo.Enabled = false;
             btn_redo.Enabled = false;
+            trackBar1.Minimum = 10;
+            trackBar1.Maximum = 150;
+            trackBar1.Value = 70;
+            label1.Text = trackBar1.Value.ToString();
+            Image img = Image.FromFile(@"C:\Users\touch\Desktop\imgTest\Przechwytywanie.PNG");
+            bmap = new Bitmap(img, 800, 504);
+            pictureBox1.Image = bmap;
+            g = Graphics.FromImage(pictureBox1.Image);
+            pictureBox1.Refresh();
             LoadPlugins();
 
         }
@@ -70,6 +78,7 @@ namespace PhotoEditor
                 g = Graphics.FromImage(pictureBox1.Image);
                 pictureBox1.Refresh();
                
+                
             }
         }
 
@@ -135,6 +144,10 @@ namespace PhotoEditor
 
         private void btn_Clear_Click(object sender, EventArgs e)
         {
+            UndoList.Clear();
+            RedoList.Clear();
+            btn_redo.Enabled = false;
+            btn_undo.Enabled = false;
             Bitmap bmap = new Bitmap(800, 504);
             pictureBox1.Image = bmap;
             g = Graphics.FromImage(pictureBox1.Image);
@@ -159,7 +172,9 @@ namespace PhotoEditor
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+           // btn_undo.Text = btn_undo.Text + "(" + UndoList.Count.ToString() + ")";
             UndoList.Add(tempBitmap);
+           
             Console.WriteLine("Size1 : " + UndoList.Count);
             startPaint = true;
             if (e.Button == MouseButtons.Left)
@@ -171,10 +186,9 @@ namespace PhotoEditor
                
                 Console.WriteLine("Square");
                 SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-
-                g.FillRectangle(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
-
+                g.FillRectangle(sb, e.X, e.Y, int.Parse(trackBar1.Value.ToString()), int.Parse(trackBar1.Value.ToString()));
                 startPaint = false;
+                tempBitmap = new Bitmap(pictureBox1.Image);
                 pictureBox1.Refresh();
             }
             if (drawRectangle)
@@ -182,18 +196,23 @@ namespace PhotoEditor
                
                 Console.WriteLine("Rectangle");
                 SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-                g.FillRectangle(sb, e.X, e.Y, 2 * int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
+                g.FillRectangle(sb, e.X, e.Y, 2 * int.Parse(trackBar1.Value.ToString()), int.Parse(trackBar1.Value.ToString()));
                 startPaint = false;
+                tempBitmap = new Bitmap(pictureBox1.Image);
                 pictureBox1.Refresh();
+
+
             }
             if (drawCircle)
             {
                 
                 SolidBrush sb = new SolidBrush(btn_SelectPenColor.BackColor);
-                g.FillEllipse(sb, e.X, e.Y, int.Parse(txt_SelectShapeSize.Text), int.Parse(txt_SelectShapeSize.Text));
+                g.FillEllipse(sb, e.X, e.Y, int.Parse(trackBar1.Value.ToString()), int.Parse(trackBar1.Value.ToString()));
                 startPaint = false;
+                tempBitmap = new Bitmap(pictureBox1.Image);
                 pictureBox1.Refresh();
             }
+           
         }
 
         private void btn_Line_Click(object sender, EventArgs e)
@@ -235,7 +254,9 @@ namespace PhotoEditor
             }
                if (RedoList.Count != 0)
             {
+                
                 UndoList.Add(new Bitmap(pictureBox1.Image));
+               
                 Console.WriteLine("Redo Size: " + RedoList.Count);
                 pictureBox1.Image = RedoList.ElementAt(RedoList.Count-1);
                 g = Graphics.FromImage(pictureBox1.Image);
@@ -276,7 +297,7 @@ namespace PhotoEditor
             labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
             labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
             plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
-            //oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
+            
             openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
             saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
             changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
@@ -302,7 +323,6 @@ namespace PhotoEditor
             labelBrushSize.Text = rm.GetString("labelBrushSizeText", ci);
             labelShapeSize.Text = rm.GetString("labelShapeSizeText", ci);
             plikToolStripMenuItem.Text = rm.GetString("plikToolStripMenuItemText", ci);
-            //oAplikacjiToolStripMenuItem.Text = rm.GetString("oAplikacjiToolStripMenuItemText", ci);
             openToolStripMenuItem.Text = rm.GetString("openToolStripMenuItem", ci);
             saveToolStripMenuItem.Text = rm.GetString("saveToolStripMenuItem", ci);
             changeLangToolStripMenuItem.Text = rm.GetString("changeLangToolStripMenuItem", ci);
@@ -312,19 +332,23 @@ namespace PhotoEditor
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             btn_undo.Enabled = true;
+           
+         
         }
 
         private void LoadPlugins()
         {
+            
             DirectoryInfo di = new DirectoryInfo(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\PluginStore\");
             FileInfo[] plugins = di.GetFiles("*.dll");
-            ToolStripMenuItem pluginsMenu = new ToolStripMenuItem("Wtyczki");
+            ToolStripMenuItem pluginsMenu = new ToolStripMenuItem("Plugin");
             //need List or Array
 
             if (plugins.Length != 0)
             {
                 foreach(FileInfo fi in plugins)
                 {
+                    
                     String pluginPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\PluginStore\" + fi.Name;
                     var assembly = Assembly.LoadFrom(pluginPath);
                     foreach(Type type in assembly.GetTypes())
@@ -338,28 +362,39 @@ namespace PhotoEditor
                                     var o = Activator.CreateInstance(type);
                                     var p = (Plugin)o;
                                     ToolStripMenuItem tsItem = new ToolStripMenuItem(p.PluginName());
+                                
                                     tsItem.Click += (s, e) => {
+
+                                        btn_undo.Enabled = true;
+                                        //btn_undo.Text = btn_undo.Text + "(" + UndoList.Count.ToString() + ")";
                                         UndoList.Add(new Bitmap(pictureBox1.Image));
-                                        Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
-                                        Bitmap bmap = p.run(tempBitmap);
+                                       // Bitmap tempBitmap = new Bitmap(pictureBox1.Image);
+                                        Bitmap bmap = p.run(new Bitmap(pictureBox1.Image));
                                         pictureBox1.Image = bmap;
                                         g = Graphics.FromImage(pictureBox1.Image);
                                         pictureBox1.Refresh();
                                     };
                                     pluginsMenu.DropDownItems.Add(tsItem);
-                                   
+
                                 }
                             }
                         }
                     }
+                    
                 }
             }
             menuStrip1.Items.Add(pluginsMenu);
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            label1.Text = trackBar1.Value.ToString();
         }
     }
 }
